@@ -4,7 +4,7 @@ import PasswordForm from './components/PasswordForm';
 function App() {
   return (
     <div>
-      <h1>Password Manager</h1>
+      <h1>Gerenciador de senhas</h1>
       <PasswordForm />
     </div>
   );
