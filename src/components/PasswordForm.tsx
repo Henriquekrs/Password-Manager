@@ -1,208 +1,232 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { PasswordFormProps } from '../types/formTypes';
 
-function PasswordForm() {
-  const [showForm, setShowForm] = useState(false);
-  const [serviceName, setServiceName] = useState('');
-  const [serviceLogin, setServiceLogin] = useState('');
-  const [servicePass, setServicePass] = useState('');
-  const [serviceURL, setServiceURL] = useState('');
-  const [enableRegBtn, setEnableRegBtn] = useState(true);
-  const [valid1, setValid1] = useState('');
-  const [valid2, setValid2] = useState('');
-  const [valid3, setValid3] = useState('');
-  const [valid4, setValid4] = useState('');
-  const [servicesSave, setServiceSave] = useState<TypeServ[]>([]);
+const ContainerForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", sans-serif;
+  align-items: center;
+  border: 1px solid #403e3e1c;
+  justify-content: center;
+  height: 65vh;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 12px 14px 5px rgba(0, 0, 0, 0.2);
+  background-color: rgb(255 255 255 / 19%);
 
-  type TypeServ = {
-    service: string;
-    login: string;
-    passw: string;
-    url: string;
-  };
+  @media (max-width: 768px) {
+    justify-content: center;
+    height: 60vh;
+  }
+  `;
 
-  const [hidePass, setHidePass] = useState(false);
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 300px;
 
-  const toggleHidePass = () => {
-    setHidePass(!hidePass);
-  };
-
-  const deleteService = (index: string) => {
-    const newServices = servicesSave.filter((service) => service.service !== index);
-    setServiceSave(newServices);
-  };
-
-  const addService = () => {
-    const newService = {
-      service: serviceName,
-      login: serviceLogin,
-      passw: servicePass,
-      url: serviceURL,
-    };
-    setServiceSave([...servicesSave, newService]);
-    setServiceName('');
-    setServiceLogin('');
-    setServicePass('');
-    setServiceURL('');
-    setEnableRegBtn(true);
-    setShowForm(false);
-  };
-
-  function isValidPassword(password: string) {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%#*?&]{8,16}$/;
-    return passwordRegex.test(password);
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 5px;
   }
 
-  function updateRegistrationButton(
-    name: string,
-    login: string,
-    url: string,
-    password: string,
-  ) {
-    const isNameFilled = name.trim() !== '';
-    const isLoginFilled = login.trim() !== '';
-    const isURLFilled = url.trim() !== '';
-    const isPasswordValid = password.length >= 8
-    && password.length <= 16
-    && isValidPassword(password);
+  @media (max-width: 768px) {
+    width: 70vw;
+  
+      input {
+        padding: 7px;
+        font-size: 14px;
+      }
+    
+  }
+`;
 
-    setEnableRegBtn(!(isNameFilled && isLoginFilled && isURLFilled && isPasswordValid));
+const Button = styled.button`
+  background-color: #009828;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: 10px 12px 14px 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 250px;
+  margin-top: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #17c800;
   }
 
-  function handleFormSubmission() {
-    updateRegistrationButton(serviceName, serviceLogin, serviceURL, servicePass);
+  @media (max-width: 768px) {
+    width: 50vw;
+    padding: 10px 15px;
   }
+`;
 
-  const passCheck1 = () => {
-    return servicePass.length < 16;
+const LabelPassword = styled.label`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  input {
+    margin-right: 10px;
+  }
+`;
+
+const Span = styled.span`
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+`;
+
+export function PasswordForm({ onPasswordSaves, onShowOff } : PasswordFormProps) {
+  const [validName, setValidName] = useState(true);
+  const [Name, setName] = useState('');
+  const [Email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(true);
+  const [Password, setPassword] = useState('');
+  const [validPassword, setValidPassword] = useState(true);
+  const [Url, setUrl] = useState('');
+  const [validUrl, setValidUrl] = useState(true);
+  const [ShowPassword, setShowPassword] = useState(true);
+
+  useEffect(() => {
+  }, [ShowPassword]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const isEmailValid = validationEmail(Email);
+    const isPasswordValid = validationPassword(Password);
+    const isUrlValid = validationUrl(Url);
+    const isNameValid = validationName(Name);
+    const isFormValid = isEmailValid && isPasswordValid && isUrlValid && isNameValid;
+    if (isFormValid) {
+      const passwordsData = JSON.parse(localStorage.getItem('passwords') || '[]');
+      const newData = { Name, Email, Password, Url };
+      const updatedData = [...passwordsData, newData];
+
+      localStorage.setItem('passwords', JSON.stringify(updatedData));
+      onPasswordSaves({ Name, Email, Password, Url });
+      onShowOff();
+    }
   };
 
-  const passCheck2 = () => {
-    return servicePass.length > 8;
+  const validationEmail = (email: string) => {
+    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const isValid = regexEmail.test(email);
+    setValidEmail(isValid);
+    return isValid;
   };
 
-  const passCheck3 = () => {
-    const check3 = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-    return check3.test(servicePass);
+  const validationPassword = (password: string) => {
+    const regexPassword = /^(?=.*\d)(?=.*[A-Z])/;
+    const isValid = regexPassword.test(password);
+    setValidPassword(isValid);
+    return isValid;
   };
 
-  const passCheck4 = () => {
-    const check4 = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-    return check4.test(servicePass);
+  const validationUrl = (url: string) => {
+    const isValid = !!url;
+    setValidUrl(isValid);
+    return isValid;
   };
 
-  const validation = (event: any) => {
-    setServicePass(event.target.value);
-    const pass1 = passCheck1();
-    const pass2 = passCheck2();
-    const pass3 = passCheck3();
-    const pass4 = passCheck4();
-    const pass = 'valid-password-check';
-    const notPass = 'invalid-password-check';
-    if (pass1 === true) {
-      setValid1(pass);
-    } else setValid1(notPass);
-    if (pass2 === true) {
-      setValid2(pass);
-    } else setValid2(notPass);
-    if (pass3 === true) {
-      setValid3(pass);
-    } else setValid3(notPass);
-    if (pass4 === true) {
-      setValid4(pass);
-    } else setValid4(notPass);
+  const validationName = (name: string) => {
+    const isValid = !!name;
+    setValidName(isValid);
+    return isValid;
+  };
+
+  const handleShowOff = (e) => {
+    e.preventDefault();
+    onShowOff();
   };
 
   return (
     <div>
-      {showForm ? (
-        <div>
-          <form onChange={ handleFormSubmission }>
-            <label>
-              Nome do serviço
-              <input
-                type="text"
-                value={ serviceName }
-                onChange={ (event) => setServiceName(event.target.value) }
-              />
-            </label>
-            <label>
-              Login
-              <input
-                type="text"
-                value={ serviceLogin }
-                onChange={ (event) => setServiceLogin(event.target.value) }
-              />
-            </label>
-            <label>
-              Senha
-              <input
-                type="password"
-                value={ servicePass }
-                onChange={ (event) => validation(event) }
-              />
-            </label>
-            <label>
-              URL
-              <input
-                type="text"
-                value={ serviceURL }
-                onChange={ (event) => setServiceURL(event.target.value) }
-              />
-            </label>
-            <button
-              onClick={ () => addService() }
-              type="button"
-              disabled={ enableRegBtn }
-            >
-              Cadastrar
-            </button>
-            <button type="button" onClick={ () => setShowForm(!showForm) }>
-              Cancelar
-            </button>
-          </form>
-          <p className={ valid1 }>Possuir até 16 caracteres</p>
-          <p className={ valid2 }>Possuir 8 ou mais caracteres</p>
-          <p className={ valid3 }>Possuir letras e números</p>
-          <p className={ valid4 }>Possuir algum caractere especial</p>
-        </div>
-      ) : (
-        <>
-          <div>
-            { servicesSave.length === 0 ? (
-              <p>Nenhuma senha cadastrada</p>
-            ) : (
-              <ul>
-                { servicesSave.map((service, index) => (
-                  <div key={ index }>
-                    <li><a href={ service.url }>{ service.service }</a></li>
-                    <li>{ service.login }</li>
-                    <li>{ hidePass ? '******' : service.passw }</li>
-                    <button
-                      data-testid="remove-btn"
-                      onClick={ () => deleteService(service.service) }
-                    >
-                      Remove Service
-                    </button>
-                  </div>
-                )) }
-              </ul>
-            ) }
-          </div>
-          <button type="button" onClick={ () => setShowForm(!showForm) }>
-            Cadastrar nova senha
-          </button>
-          <label>
-            Esconder senhas
+      <ContainerForm>
+        <Label>
+          Nome:
+          <input
+            type="text"
+            value={ Name }
+            onChange={ (e) => {
+              setName(e.target.value);
+              setValidName(!!e.target.value);
+            } }
+          />
+          {!validName && <Span>Nome inválido</Span>}
+        </Label>
+        <Label>
+          Email ou Usuário:
+          <input
+            type="text"
+            value={ Email }
+            onChange={ (e) => {
+              setEmail(e.target.value);
+              setValidEmail(validationEmail(e.target.value));
+            } }
+          />
+          {!validEmail && <Span>Email inválido</Span>}
+        </Label>
+        {ShowPassword
+          ? <Label>
+            Senha:
             <input
-              type="checkbox"
-              checked={ hidePass }
-              onChange={ toggleHidePass }
+              type="password"
+              value={ Password }
+              onChange={ (e) => {
+                setPassword(e.target.value);
+                setValidPassword(validationPassword(e.target.value));
+              } }
             />
-          </label>
-        </>
-      )}
+            {!validPassword && <Span>Senha inválida</Span>}
+          </Label>
+          : <Label>
+            Senha:
+            <input
+              type="text"
+              value={ Password }
+              onChange={ (e) => {
+                setPassword(e.target.value);
+                setValidPassword(validationPassword(e.target.value));
+              } }
+            />
+            {!validPassword && <Span>Senha inválida</Span>}
+          </Label> }
+        <LabelPassword>
+          <input
+            type="checkbox"
+            onChange={ () => setShowPassword(!ShowPassword) }
+          />
+          Mostrar senha
+        </LabelPassword>
+        <Label>
+          URL:
+          <input
+            type="text"
+            value={ Url }
+            onChange={ (e) => {
+              setUrl(e.target.value);
+              setValidUrl(!!e.target.value);
+            } }
+          />
+          {!validUrl && <Span>URL inválida</Span>}
+        </Label>
+        <Button
+          onClick={ handleFormSubmit }
+          type="submit"
+        >
+          Salvar
+        </Button>
+        <Button onClick={ handleShowOff }>Cancelar</Button>
+      </ContainerForm>
     </div>
   );
 }
-
-export default PasswordForm;
