@@ -14,7 +14,6 @@ Este projeto foi desenvolvido durante minha formação no módulo de front-end n
 
 ### Pré-requisitos
 
-Liste os pré-requisitos necessários para rodar o projeto. Por exemplo:
 - **Node.js** (versão X.X.X)
 - **npm** (versão X.X.X)
 
