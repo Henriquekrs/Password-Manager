@@ -1,9 +1,9 @@
-import './App.css';
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { PasswordForm } from './components/PasswordForm';
-import ListForm from './components/ListForm';
-import { DataPassword } from './types/formTypes';
+import "./App.css";
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { PasswordForm } from "./components/PasswordForm";
+import ListForm from "./components/ListForm";
+import { DataPassword } from "./types/formTypes";
 
 const Title = styled.h1`
   text-align: center;
@@ -92,19 +92,19 @@ const HeaderAuthor = styled.h1`
 `;
 
 const HideShowButton = styled(Button)<{ isHidden: boolean }>`
-  background-color: ${({ isHidden }) => (isHidden ? '#FF0000' : '#008000')};
+  background-color: ${({ isHidden }) => (isHidden ? "#FF0000" : "#008000")};
 `;
 
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [passwordsData, setPasswordsData] = useState<DataPassword[]>([]);
   const [isHidden, setIsHidden] = useState(true);
-  const handlePasswordSaves = (formData) => {
+  const handlePasswordSaves = (formData: DataPassword) => {
     setPasswordsData([...passwordsData, formData]);
   };
 
   useEffect(() => {
-    const data = localStorage.getItem('passwords');
+    const data = localStorage.getItem("passwords");
     if (data) {
       setPasswordsData(JSON.parse(data));
     }
@@ -118,14 +118,22 @@ function App() {
     <ContainerForm>
       <HeaderAuthor>
         Developed by Gustavo Henrique
-        <a href="https://www.linkedin.com/in/henriquekrs/" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.linkedin.com/in/henriquekrs/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/256/174/174857.png"
             alt="Ícone 2"
             width="24"
           />
         </a>
-        <a href="https://github.com/Henriquekrs" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/Henriquekrs"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
             alt="Ícone 2"
@@ -136,22 +144,24 @@ function App() {
       <Title>Gerenciador de senhas</Title>
       {showForm ? (
         <PasswordForm
-          onPasswordSaves={ handlePasswordSaves }
-          onShowOff={ () => setShowForm(false) }
-          isHidden={ isHidden }
+          onPasswordSaves={handlePasswordSaves}
+          onShowOff={() => setShowForm(false)}
+          isHidden={isHidden}
         />
       ) : (
         <ListForm
-          passwordsData={ passwordsData }
-          isHidden={ isHidden }
-          setPasswordsData={ setPasswordsData }
+          passwordsData={passwordsData}
+          isHidden={isHidden}
+          setPasswordsData={setPasswordsData}
         />
       )}
       {!showForm ? (
         <ContainerButton>
-          <Button onClick={ () => setShowForm(true) }>Cadastrar nova senha</Button>
-          <HideShowButton onClick={ handleHideShow } isHidden={ isHidden }>
-            {isHidden ? 'Mostrar senha' : 'Ocultar senha'}
+          <Button onClick={() => setShowForm(true)}>
+            Cadastrar nova senha
+          </Button>
+          <HideShowButton onClick={handleHideShow} isHidden={isHidden}>
+            {isHidden ? "Mostrar senha" : "Ocultar senha"}
           </HideShowButton>
         </ContainerButton>
       ) : null}

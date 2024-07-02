@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { PasswordFormProps } from '../types/formTypes';
+import styled from "styled-components";
+import { PasswordListProps } from "../types/formTypes";
 
 const ContainerDiv = styled.div`
   display: flex;
@@ -94,11 +94,15 @@ const DeleteButton = styled.button`
   align-self: center;
 `;
 
-function ListForm({ passwordsData, isHidden, setPasswordsData }: PasswordFormProps) {
+function ListForm({
+  passwordsData,
+  isHidden,
+  setPasswordsData,
+}: PasswordListProps) {
   const handleDelete = (index: number) => () => {
     const updatedPasswords = passwordsData.filter((_, i) => i !== index);
     setPasswordsData(updatedPasswords);
-    localStorage.setItem('passwords', JSON.stringify(updatedPasswords));
+    localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
   };
 
   return (
@@ -106,16 +110,18 @@ function ListForm({ passwordsData, isHidden, setPasswordsData }: PasswordFormPro
       <Title>Lista de senhas</Title>
       <List>
         {passwordsData.map((password, index) => (
-          <ListItem key={ index }>
+          <ListItem key={index}>
             <div>
               {Object.entries(password).map(([key, value]) => (
-                <ItemText key={ key }>
+                <ItemText key={key}>
                   <span>{`${key}: `}</span>
-                  { isHidden && key === 'Password' ? '*'.repeat(value.length) : value }
+                  {isHidden && key === "Password"
+                    ? "*".repeat(value.length)
+                    : value}
                 </ItemText>
               ))}
             </div>
-            <DeleteButton onClick={ handleDelete(index) }>Excluir</DeleteButton>
+            <DeleteButton onClick={handleDelete(index)}>Excluir</DeleteButton>
           </ListItem>
         ))}
       </List>

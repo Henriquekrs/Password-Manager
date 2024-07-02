@@ -93,6 +93,7 @@ const Span = styled.span`
 export function PasswordForm({
   onPasswordSaves,
   onShowOff,
+  isHidden,
 }: PasswordFormProps) {
   const [validName, setValidName] = useState(true);
   const [Name, setName] = useState("");
