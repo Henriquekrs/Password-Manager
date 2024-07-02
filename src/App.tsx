@@ -8,7 +8,7 @@ import { DataPassword } from './types/formTypes';
 const Title = styled.h1`
   text-align: center;
   color: #ececec;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 9vh;
 
   @media (max-width: 768px) {
@@ -37,7 +37,7 @@ const ContainerForm = styled.div`
 
 const Button = styled.button`
   background-color: #ffffff14;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   box-shadow: 10px 12px 14px 5px rgba(0, 0, 0, 0.2);
   color: #fff;
   border: none;
@@ -72,7 +72,7 @@ const HeaderAuthor = styled.h1`
   font-size: 20px;
   font-weight: 100;
   color: #000000;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 5vh;
   margin: 0;
   padding: 0;
@@ -99,7 +99,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [passwordsData, setPasswordsData] = useState<DataPassword[]>([]);
   const [isHidden, setIsHidden] = useState(true);
-  const handlePasswordSaves = (formData) => {
+  const handlePasswordSaves = (formData: DataPassword) => {
     setPasswordsData([...passwordsData, formData]);
   };
 
@@ -118,14 +118,22 @@ function App() {
     <ContainerForm>
       <HeaderAuthor>
         Developed by Gustavo Henrique
-        <a href="https://www.linkedin.com/in/henriquekrs/" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.linkedin.com/in/henriquekrs/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/256/174/174857.png"
             alt="Ícone 2"
             width="24"
           />
         </a>
-        <a href="https://github.com/Henriquekrs" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/Henriquekrs"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
             alt="Ícone 2"
@@ -136,21 +144,23 @@ function App() {
       <Title>Gerenciador de senhas</Title>
       {showForm ? (
         <PasswordForm
-          onPasswordSaves={ handlePasswordSaves }
-          onShowOff={ () => setShowForm(false) }
-          isHidden={ isHidden }
+          onPasswordSaves={handlePasswordSaves}
+          onShowOff={() => setShowForm(false)}
+          isHidden={isHidden}
         />
       ) : (
         <ListForm
-          passwordsData={ passwordsData }
-          isHidden={ isHidden }
-          setPasswordsData={ setPasswordsData }
+          passwordsData={passwordsData}
+          isHidden={isHidden}
+          setPasswordsData={setPasswordsData}
         />
       )}
       {!showForm ? (
         <ContainerButton>
-          <Button onClick={ () => setShowForm(true) }>Cadastrar nova senha</Button>
-          <HideShowButton onClick={ handleHideShow } isHidden={ isHidden }>
+          <Button onClick={() => setShowForm(true)}>
+            Cadastrar nova senha
+          </Button>
+          <HideShowButton onClick={handleHideShow} isHidden={isHidden}>
             {isHidden ? 'Mostrar senha' : 'Ocultar senha'}
           </HideShowButton>
         </ContainerButton>

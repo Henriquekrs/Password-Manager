@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PasswordFormProps } from '../types/formTypes';
+import { ListFormProps, PasswordFormProps } from '../types/formTypes';
 
 const ContainerDiv = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const ContainerDiv = styled.div`
 const Title = styled.h1`
   text-align: center;
   color: #e8e8e8;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 55vh;
 
   @media (max-width: 768px) {
@@ -68,7 +68,7 @@ const ListItem = styled.li`
 `;
 
 const ItemText = styled.p`
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   color: #ffffff;
   margin: 0px 5px 0px 0px;
@@ -84,7 +84,7 @@ const ItemText = styled.p`
 
 const DeleteButton = styled.button`
   background-color: #c0000099;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   border-radius: 5px;
   padding: 5px;
   border: none;
@@ -94,7 +94,11 @@ const DeleteButton = styled.button`
   align-self: center;
 `;
 
-function ListForm({ passwordsData, isHidden, setPasswordsData }: PasswordFormProps) {
+function ListForm({
+  passwordsData,
+  isHidden,
+  setPasswordsData,
+}: ListFormProps) {
   const handleDelete = (index: number) => () => {
     const updatedPasswords = passwordsData.filter((_, i) => i !== index);
     setPasswordsData(updatedPasswords);
@@ -106,16 +110,18 @@ function ListForm({ passwordsData, isHidden, setPasswordsData }: PasswordFormPro
       <Title>Lista de senhas</Title>
       <List>
         {passwordsData.map((password, index) => (
-          <ListItem key={ index }>
+          <ListItem key={index}>
             <div>
               {Object.entries(password).map(([key, value]) => (
-                <ItemText key={ key }>
+                <ItemText key={key}>
                   <span>{`${key}: `}</span>
-                  { isHidden && key === 'Password' ? '*'.repeat(value.length) : value }
+                  {isHidden && key === 'Password'
+                    ? '*'.repeat(value.length)
+                    : value}
                 </ItemText>
               ))}
             </div>
-            <DeleteButton onClick={ handleDelete(index) }>Excluir</DeleteButton>
+            <DeleteButton onClick={handleDelete(index)}>Excluir</DeleteButton>
           </ListItem>
         ))}
       </List>
