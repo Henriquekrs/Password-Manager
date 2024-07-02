@@ -8,8 +8,15 @@ import { DataPassword } from './types/formTypes';
 const Title = styled.h1`
   text-align: center;
   color: #ececec;
-  font-family: 'Open Sans', sans-serif;
-  height: 9vh;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 40px;
+  height: 20vh;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 768px) {
     font-size: 27px;
@@ -37,7 +44,9 @@ const ContainerForm = styled.div`
 
 const Button = styled.button`
   background-color: #ffffff14;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 400;
+  font-style: normal;
   box-shadow: 10px 12px 14px 5px rgba(0, 0, 0, 0.2);
   color: #fff;
   border: none;
@@ -65,7 +74,7 @@ const HeaderAuthor = styled.h1`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: #ffffff66;
   position: absolute;
   top: 0px;
   width: 100vw;

@@ -11,7 +11,7 @@ const ContainerDiv = styled.div`
   box-shadow: 10px 12px 14px 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   width: 40vw;
-  height: 80vh;
+  height: 70vh;
 
   @media (max-width: 768px) {
     width: 90vw;
@@ -22,7 +22,9 @@ const ContainerDiv = styled.div`
 const Title = styled.h1`
   text-align: center;
   color: #e8e8e8;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 500;
+  font-style: normal;
   height: 55vh;
 
   @media (max-width: 768px) {
@@ -68,7 +70,9 @@ const ListItem = styled.li`
 `;
 
 const ItemText = styled.p`
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-style: normal;
   font-size: 16px;
   color: #ffffff;
   margin: 0px 5px 0px 0px;
@@ -84,7 +88,9 @@ const ItemText = styled.p`
 
 const DeleteButton = styled.button`
   background-color: #c0000099;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-style: normal;
   border-radius: 5px;
   padding: 5px;
   border: none;
