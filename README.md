@@ -12,6 +12,16 @@ Este projeto foi desenvolvido durante minha formação no módulo de front-end n
 
 ## Instruções de instalação e uso
 
+### Uso
+
+- Acesse o link: [Passowd Manager](https://password-manager-nu-one.vercel.app/)
+
+### Exemplos de uso
+
+- Para cadastrar uma nova senha, clique no botão de cadastrar senhar, insira os valores no formato correto exemplo: (email :teste@teste.com, Password: Password1).
+- Para excluir a senha clique no botão de excluir.
+- Para visualizar as senhas salvas clique no botão Mostrar Senhas.
+
 ### Pré-requisitos
 
 - **Node.js** (versão X.X.X)
@@ -87,24 +97,6 @@ Este projeto foi desenvolvido durante minha formação no módulo de front-end n
     ```bash
     npm install
     ```
-
-### Uso
-
-Passos para iniciar e usar o projeto:
-1. Inicie o servidor de desenvolvimento:
-    ```bash
-    npm run dev
-    ```
-2. Abra seu navegador e acesse:
-    ```
-    http://localhost:5173
-    ```
-
-### Exemplos de uso
-
-- Para cadastrar uma nova senha, clique no botão de cadastrar senhar, insira os valores no formato correto exemplo: (email :teste@teste.com, Password: Password1).
-- Para excluir a senha clique no botão de excluir.
-- Para visualizar as senhas salvas clique no botão Mostrar Senhas.
 
 ## Contato
 
