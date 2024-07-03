@@ -2,7 +2,7 @@
 
 ## Do que se trata esse projeto
 
-Este projeto foi desenvolvido durante minha formação no módulo de front-end na trybe. Esta aplicação se trata de um gerenciador de senhas onde o usuário poderá cadastrar senhas contendo o e-mail ou usuário utilizado para logar seguido da senha, o nome da plataforma e a URL do site para fazer o login.
+Este projeto foi desenvolvido durante minha formação no módulo de front-end na [Trybe](https://www.betrybe.com/). Esta aplicação se trata de um gerenciador de senhas onde o usuário poderá cadastrar senhas contendo o e-mail ou usuário utilizado para logar seguido da senha, o nome da plataforma e a URL do site para fazer o login.
 
 ## Principais linguagens e tecnologias utilizadas
 
