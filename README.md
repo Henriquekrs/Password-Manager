@@ -24,8 +24,8 @@ Este projeto foi desenvolvido durante minha formação no módulo de front-end n
 
 ### Pré-requisitos
 
-- **Node.js** (versão X.X.X)
-- **npm** (versão X.X.X)
+- **Node.js** (versão 18.3.1 ou superior)
+- **npm** (versão 10.8.1)
 
 ### Instalação
 
